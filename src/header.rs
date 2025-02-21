@@ -252,12 +252,12 @@ impl Header {
     /// let header = Header::read_from(&mut file).unwrap();
     /// ```
     pub fn read_from<R: Read>(read: &mut R) -> las::Result<Header> {
-        use las::header::Error;
+        use las::Error;
 
         let mut header = Header::default();
         read.read_exact(&mut header.file_signature)?;
         if header.file_signature != LASF {
-            return Err(Error::FileSignature(header.file_signature).into());
+            return Err(Error::InvalidFileSignature(header.file_signature).into());
         }
         header.file_source_id = read.read_u16::<LittleEndian>()?;
         header.global_encoding = read.read_u16::<LittleEndian>()?;

@@ -205,4 +205,10 @@ impl<'a, R: Read + Seek + Send + 'a> laz::laszip::LazDecompressor for LasZipDeco
         self.seek(index)?;
         Ok(())
     }
+
+    fn decompress_one(&mut self, point: &mut [u8]) -> laz::Result<()> {
+        self.decompress_one(point)?;
+        Ok(())
+    }
+
 }
